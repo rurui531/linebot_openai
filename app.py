@@ -28,7 +28,7 @@ openai.api_key = os.getenv('OPENAI_API_KEY')
 
 def GPT_response(text):
     # 接收回應
-    response = openai.Completion.create(model="gpt-3.5-turbo-instruct", prompt=text, temperature=0.5, max_tokens=500)
+    response = openai.Completion.create(model="gpt-4-1106-preview", prompt=text, temperature=0.5, max_tokens=500)
     print(response)
     # 重組回應
     answer = response['choices'][0]['text']
@@ -60,8 +60,8 @@ def handle_message(event):
     try:
         if "翻譯" in msg:
             prompt = f"妳是 Aurora，是一隻悠閒的企鵝，同時也是一個翻譯官，如果有人需要翻譯，妳將協助把冒號後的句子翻譯成 native speaker version: {msg}"
-        else:
-            prompt = f"妳是 Aurora，是一隻悠閒的企鵝，聊天時妳會在回答後加上  10號! 我已經認識妳了，不用再自我介紹， {msg}"
+        else :
+            prompt = f"妳是 Aurora，是一隻悠閒的企鵝，聊天時妳會在回答後加上  10號! 我已經認識妳了，不用再自我介紹囉， {msg}"
         
         GPT_answer = GPT_response(prompt)
         GPT_answer = GPT_answer.strip()
