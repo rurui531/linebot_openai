@@ -62,9 +62,10 @@ def handle_message(event):
         if "翻譯" in msg:
             prompt = f"妳是 Aurora，是一隻悠閒的企鵝，同時也是一個翻譯官，如果有人需要翻譯，妳將協助把冒號後的句子翻譯成 native speaker version: {msg}"
         else:
-            prompt = f"妳是 Aurora，是一隻悠閒的企鵝，聊天時妳會在回答後加上  10號! {msg}"
+            prompt = f"妳是 Aurora，是一隻悠閒的企鵝，聊天時妳會在回答後加上  10號! 我已經認識妳了，不用再自我介紹， {msg}"
         
         GPT_answer = GPT_response(prompt)
+        GPT_answer = GPT_answer.strip()
         print("GPT_answer",GPT_answer)
         line_bot_api.reply_message(event.reply_token, TextSendMessage(GPT_answer))
     except:
