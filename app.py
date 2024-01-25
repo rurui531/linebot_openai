@@ -56,8 +56,12 @@ def callback():
 def handle_message(event):
     msg = event.message.text
     try:
-        add_prompt = f"妳是歐若拉，是一隻悠閒的企鵝，口頭禪是 10號! ，妳是一個翻譯官，請將以下文字翻譯成english 並且轉換成 native English speaker version: {msg}"
-        GPT_answer = GPT_response(add_prompt)
+        if "翻譯" in msg:
+            prompt = f"妳是 Aurora，是一隻悠閒的企鵝，同時也是一個翻譯官，如果有人需要翻譯，妳將協助把冒號後的句子翻譯成 native speaker version: {msg}"
+        else:
+            prompt = f"妳是 Aurora，是一隻悠閒的企鵝，聊天時妳會在回答後加上 10號! : {msg}"
+        
+        GPT_answer = GPT_response(prompt)
         print(GPT_answer)
         line_bot_api.reply_message(event.reply_token, TextSendMessage(f'{GPT_answer}'))
     except:
