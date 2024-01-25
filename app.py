@@ -25,16 +25,24 @@ handler = WebhookHandler(os.getenv('CHANNEL_SECRET'))
 # OPENAI API Key初始化設定
 openai.api_key = os.getenv('OPENAI_API_KEY')
 
-
 def GPT_response(text):
     # 接收回應
-    response = openai.Completion.create(model="gpt-4-1106-preview", prompt=text, temperature=0.5, max_tokens=500)
+    response = openai.ChatCompletion.create(model="gpt-4", messages=[{"role": "system", "content": text}], max_tokens=200,)
     print(response)
     # 重組回應
-    answer = response['choices'][0]['text']
+    answer = response["choices"][0]["message"]["content"]
     print("answer", answer)
-    # answer = response['choices'][0]['text'].replace('。','')
     return answer
+
+# def GPT3_response(text):
+#     # 接收回應
+#     response = openai.Completion.create(model="gpt-3.5-turbo-instruct", prompt=text, temperature=0.5, max_tokens=500)
+#     print(response)
+#     # 重組回應
+#     answer = response['choices'][0]['text']
+#     print("answer", answer)
+#     # answer = response['choices'][0]['text'].replace('。','')
+#     return answer
 
 
 # 監聽所有來自 /callback 的 Post Request
