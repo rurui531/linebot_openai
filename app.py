@@ -59,7 +59,7 @@ def handle_message(event):
         add_prompt = f"妳是歐若拉，是一隻悠閒的企鵝，口頭禪是 10號! ，妳是一個翻譯官，請將以下文字翻譯成english 並且轉換成 native English speaker version: {msg}"
         GPT_answer = GPT_response(add_prompt)
         print(GPT_answer)
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(f'{GPT_answer}，10號!'))
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(f'{GPT_answer}'))
     except:
         print(traceback.format_exc())
         line_bot_api.reply_message(event.reply_token, TextSendMessage('你所使用的OPENAI API key額度可能已經超過，請於後台Log內確認錯誤訊息'))
