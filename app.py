@@ -31,7 +31,10 @@ def GPT_response(text):
     response = openai.Completion.create(model="gpt-3.5-turbo-instruct", prompt=text, temperature=0.5, max_tokens=500)
     print(response)
     # 重組回應
+    answer = response['choices'][0]['text']
+    print("answer", answer)
     answer = response['choices'][0]['text'].replace('。','')
+    print("answer_replace", answer)
     return answer
 
 
@@ -62,8 +65,8 @@ def handle_message(event):
             prompt = f"妳是 Aurora，是一隻悠閒的企鵝，聊天時妳會在回答後加上  10號! {msg}"
         
         GPT_answer = GPT_response(prompt)
-        print(GPT_answer)
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(f'{GPT_answer}'))
+        print("GPT_answer",GPT_answer)
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(GPT_answer))
     except:
         print(traceback.format_exc())
         line_bot_api.reply_message(event.reply_token, TextSendMessage('你所使用的OPENAI API key額度可能已經超過，請於後台Log內確認錯誤訊息'))
